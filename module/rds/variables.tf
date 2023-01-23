@@ -1,26 +1,33 @@
-variable "settings" {
-    description = "Configuration settings"
-    type = map(any)
-    default = {
-        "database" = {
-            allocated_storage = 10
-            engine = "postgres"
-            engine_version = "12.9"
-            instance_class = "db.t3.micro"
-            db_name = "mishazt"
-            skip_final_snapshot = true
-        },
-        "web_app" = {
-            count = 1
-            instance_type = "t2.micro"
-        }
-    }
-}
-
 variable "db_username" {
     description = "database master user"
     type = string
     sensitive = true
+}
+
+variable "allocated_storage" {
+    type = number
+}
+
+variable "database_engine" {
+    type = string
+}
+
+variable "engine_version" {
+    type = string
+}
+
+variable "instance_class" {
+    type = string
+}
+
+variable "db_name" {
+    type = string
+    default = "mishazt"
+}
+
+variable "skip_final_snapshot" {
+    type = bool
+    default = true
 }
 
 variable "db_subnet_group_name" {
@@ -28,5 +35,5 @@ variable "db_subnet_group_name" {
 }
 
 variable "vpc_security_group_ids" {
-    type = list(string)
+    type = set(string)
 }
